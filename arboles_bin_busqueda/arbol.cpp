@@ -4,7 +4,7 @@ struct nodo_abb {
     int dato;
     abb izq;
     abb der;
-}
+};
 
 abb crear() {
     //crea un árbol vacío binario
@@ -15,14 +15,14 @@ abb Insertar(int x, abb a) {
     //pos: crea un nuevo árbolb cuya raíz tiene valor x
     if(a  == NULL) {
         abb aux = new (nodo_abb);
-        abb->dato = x;
-        abb->izq = NULL;
-        abb->der = NULL;
+        aux->dato = x;
+        aux->izq = NULL;
+        aux->der = NULL;
         return aux;
     } else if(x < a->dato) {
-        a->izq = insertar(x, a->izq);
+        a->izq = Insertar(x, a->izq);
     } else {
-        a->der = insertar(x, a->der);
+        a->der = Insertar(x, a->der);
     }
     return a;
 }
@@ -37,7 +37,7 @@ abb subizq(abb a) {
     //pos: retorna el subárbol izquierdo
     //pre: ab no vacía
     return a->izq;
-}F
+}
 
 abb subder(abb a) {
     //pos: retorna el subárbol derecho

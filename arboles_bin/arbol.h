@@ -1,5 +1,8 @@
-#ifndef GENERALES_H_
-#define GENERALES_H_
+#ifndef ARBOL_H_
+#define ARBOL_H_
+
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct nodo_arbolb* arbolb;
 
@@ -13,8 +16,8 @@ bool pertenece1(int x, arbolb ab);
 bool pertenece2(int x, arbolb ab);
 int max(int x, int y);
 int profundidad(arbolb ab);
-int cantidad(arbol ab);
-arbolb destruir(arbol ab);
-void destruir(arbolb &ab);
+int cantidad(arbolb ab);
+arbolb destruir(arbolb ab);
+void destruir1(arbolb &ab);
 
 #endif

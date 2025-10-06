@@ -4,7 +4,7 @@ struct nodo_arbolb {
     int dato;
     arbolb izq;
     arbolb der;
-}
+};
 
 arbolb crear() {
     //crea un árbol vacío binario
@@ -51,10 +51,10 @@ bool pertenece1(int x, arbolb ab) {
         return NULL;
     } else if(ab->dato == x) {
         return true;
-    } else if(pertenece(x, ab->izq)) {
+    } else if(pertenece1(x, ab->izq)) {
         return true;
     } else {
-        return pertenece(x, ab->der);
+        return pertenece1(x, ab->der);
     }
 }
 
@@ -65,7 +65,7 @@ bool pertenece2(int x, arbolb ab) {
     } else if(raiz(ab) == x) {
         return true;
     } else {
-        return pertenece(x, subizq(ab)) || pertenece(x, subder(ab));
+        return pertenece2(x, subizq(ab)) || pertenece2(x, subder(ab));
     }
 }
 
@@ -109,11 +109,11 @@ arbolb destruir(arbolb ab) {
     }
 }
 
-void destruir(arbolb &ab) {
+void destruir1(arbolb &ab) {
     //pos: elimina todos los nodos y libera memoria
     if(ab != NULL) {
-        destruir(ab->izq);
-        destruir(ab->der);
+        destruir1(ab->izq);
+        destruir1(ab->der);
         delete (ab);
     }
 }
