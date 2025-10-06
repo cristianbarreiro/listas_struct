@@ -23,28 +23,25 @@ lista cons(lista l, int n)
 
 lista snoc(lista l, int n)
 {
-    // agrega n al final de la lista de forma iterativa
-    lista nuevo = new (nodo_lista);
-    nuevo->dato = n;
-    nuevo->sig = NULL;
-
-    if (Null(l))
+    // agrega n al final de la lista
+    lista aux = new (nodo_lista);
+    aux->dato = n;
+    aux->sig = NULL;
+    lista recl = l;
+    
+    if (l != NULL)
     {
-        // Si la lista está vacía, el nuevo nodo es toda la lista
-        return nuevo;
+        while (recl->sig != NULL)
+        {
+            recl = recl->sig;
+        }
+        recl->sig = aux;
     }
     else
     {
-        // Recorrer hasta el último nodo
-        lista actual = l;
-        while (actual->sig != NULL)
-        {
-            actual = actual->sig;
-        }
-        // Enlazar el nuevo nodo al final
-        actual->sig = nuevo;
-        return l;
+        l = aux;
     }
+    return l;
 }
 
 bool Null(lista l)
