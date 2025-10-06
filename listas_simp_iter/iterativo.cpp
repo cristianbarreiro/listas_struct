@@ -23,14 +23,27 @@ lista cons(lista l, int n)
 
 lista snoc(lista l, int n)
 {
-    // lista n al final de la lista
+    // agrega n al final de la lista de forma iterativa
+    lista nuevo = new (nodo_lista);
+    nuevo->dato = n;
+    nuevo->sig = NULL;
+    
     if (Null(l))
     {
-        return cons(l, n);
+        // Si la lista está vacía, el nuevo nodo es toda la lista
+        return nuevo;
     }
     else
     {
-        return cons(snoc(tail(l), n), head(l));
+        // Recorrer hasta el último nodo
+        lista actual = l;
+        while (actual->sig != NULL)
+        {
+            actual = actual->sig;
+        }
+        // Enlazar el nuevo nodo al final
+        actual->sig = nuevo;
+        return l;
     }
 }
 
@@ -59,36 +72,82 @@ bool IsElement(lista l, int n)
     }
 }
 
-int contar(lista l)
-{
-    if (Null(l))
-    {
-        return 0;
-    }
-    else
-    {
-        return 1 + contar(tail(l));
-    }
+int contar(lista l){
+// Retorna la cantidad de elementos de l (iterativa).
+	int cant = 0;
+	while(l != NULL){
+		cant++;
+		l = l->sig;
+	}
+	return cant;
 }
 
 lista quitar(lista l, int n)
 {
-    // devuelve una nueva lista sin el elem n
+    // devuelve una nueva lista sin el elem n (iterativa)
     if (Null(l))
     {
         return l;
     }
-    else
+    
+    // Si el primer elemento es el que buscamos, devolver el resto
+    if (head(l) == n)
     {
-        if (head(l) == n)
+        return tail(l);
+    }
+    
+    // Crear nueva lista copiando elementos hasta encontrar n
+    lista nueva = NULL;
+    lista ultimo = NULL;
+    lista actual = l;
+    
+    // Copiar elementos hasta encontrar n o llegar al final
+    while (actual != NULL && actual->dato != n)
+    {
+        lista nuevo_nodo = new (nodo_lista);
+        nuevo_nodo->dato = actual->dato;
+        nuevo_nodo->sig = NULL;
+        
+        if (nueva == NULL)
         {
-            return tail(l);
+            nueva = nuevo_nodo;
+            ultimo = nuevo_nodo;
         }
         else
         {
-            return cons(quitar(tail(l), n), head(l));
+            ultimo->sig = nuevo_nodo;
+            ultimo = nuevo_nodo;
+        }
+        actual = actual->sig;
+    }
+    
+    // Si encontramos el elemento, saltar este nodo y copiar el resto
+    if (actual != NULL && actual->dato == n)
+    {
+        actual = actual->sig; // Saltar el nodo con el elemento n
+        
+        // Copiar el resto de la lista
+        while (actual != NULL)
+        {
+            lista nuevo_nodo = new (nodo_lista);
+            nuevo_nodo->dato = actual->dato;
+            nuevo_nodo->sig = NULL;
+            
+            if (nueva == NULL)
+            {
+                nueva = nuevo_nodo;
+                ultimo = nuevo_nodo;
+            }
+            else
+            {
+                ultimo->sig = nuevo_nodo;
+                ultimo = nuevo_nodo;
+            }
+            actual = actual->sig;
         }
     }
+    
+    return nueva;
 }
 
 void imprimir(lista l)
@@ -469,127 +528,3 @@ lista Append(lista l, lista p)
     return ret;
 }
 
-lista TakeRecursivo(int i, lista l)
-{
-    // Retorna la lista resultado de tomar los primeros i elementos.
-    // l no comparte memoria con la lista resultado.
-    // PRE: i >= 0
-
-    if (i <= 0 || l == NULL)
-    {
-        return NULL;
-    }
-
-    lista nuevo = new (nodo_lista);
-    nuevo->dato = l->dato;
-    nuevo->sig = TakeRecursivo(i - 1, l->sig);
-    return nuevo;
-}
-
-lista DropRecursivo(int u, lista l)
-{
-    // Retorna la lista resultado de no tomar los primeros u elementos.
-    // l no comparte memoria con la lista resultado.
-    // PRE: u >= 0
-
-    if (l == NULL)
-    {
-        return NULL;
-    }
-
-    if (u > 0)
-    {
-        return DropRecursivo(u - 1, l->sig);
-    }
-    else
-    {
-        lista nuevo = new (nodo_lista);
-        nuevo->dato = l->dato;
-        nuevo->sig = DropRecursivo(0, l->sig);
-        return nuevo;
-    }
-}
-
-lista MergeRecursivo(lista l, lista p)
-{
-    // retorna una nueva lista con los elementos de l y p intercalados de menor a mayor
-    // la nueva lista no comparte memoria ni con l ni con p
-    if (l == NULL && p == NULL)
-    {
-        return NULL;
-    }
-    else if (p == NULL)
-    {
-        lista aux = new (nodo_lista);
-        aux->dato = l->dato;
-        aux->sig = MergeRecursivo(l->sig, NULL);
-        return aux;
-    }
-    else if (l == NULL)
-    {
-        lista aux = new (nodo_lista);
-        aux->dato = p->dato;
-        aux->sig = MergeRecursivo(NULL, p->sig);
-        return aux;
-    }
-    else
-    {
-        lista aux = new (nodo_lista);
-        if (l->dato < p->dato)
-        {
-            aux->dato = l->dato;
-            aux->sig = MergeRecursivo(l->sig, p);
-        }
-        else
-        {
-            aux->dato = p->dato;
-            aux->sig = MergeRecursivo(l, p->sig);
-        }
-        return aux;
-    }
-}
-
-lista AppendRecursivo(lista l, lista p)
-{
-    // Agrega la lista p al final de la lista l.
-    // l y p no comparten memoria con la lista resultado.
-
-    if (l == NULL && p == NULL)
-    {
-        return NULL;
-    }
-    else if (l == NULL)
-    {
-        lista aux = new (nodo_lista);
-        aux->dato = p->dato;
-        aux->sig = AppendRecursivo(NULL, p->sig);
-        return aux;
-    }
-    else
-    {
-        lista aux = new (nodo_lista);
-        aux->dato = l->dato;
-        aux->sig = AppendRecursivo(l->sig, p);
-        return aux;
-    }
-}
-
-lista RemoveRecursivo(lista l, int n)
-{
-    // Elimina todas las ocurrencias de n en la lista l de forma recursiva y devuelve una copia
-    if (l == NULL)
-    {
-        return NULL;
-    }
-    if (l->dato == n)
-    {
-        return RemoveRecursivo(l->sig, n);
-    }
-    else
-    {
-        lista nuevo = new (nodo_lista);
-        nuevo->dato = l->dato;
-        nuevo->sig = RemoveRecursivo(l->sig, n);
-        return nuevo;
-    }
-}

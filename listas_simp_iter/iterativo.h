@@ -28,10 +28,5 @@ lista Drop(lista l, int i);
 lista Take(lista l, int n);
 lista Merge(lista l, lista p);
 lista Append(lista l, lista p);
-lista TakeRecursivo(int i, lista l);
-lista DropRecursivo(int u, lista l);
-lista MergeRecursivo(lista l, lista p);
-lista AppendRecursivo(lista l, lista p);
-lista RemoveRecursivo(lista l, int n);
 
 #endif
