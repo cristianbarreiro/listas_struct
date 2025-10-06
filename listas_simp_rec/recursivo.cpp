@@ -277,16 +277,16 @@ lista Change(int x, int y, lista l)
     }
     else
     {
-        lista aux = new (nodo_lista);
-        if (Head(l) == x)
+        lista nuevo = new (nodo_lista);
+        if (l->dato == x)
         {
-            aux->dato = y;
+            nuevo->dato = y;
         }
         else
         {
-            aux->dato = Head(l);
+            nuevo->dato = l->dato;
         }
-        aux->sig = Change(x, y, Tail(l));
+        nuevo->sig = Change(x, y, l->sig);
         return nuevo;
     }
 }

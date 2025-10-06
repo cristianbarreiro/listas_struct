@@ -27,7 +27,7 @@ lista snoc(lista l, int n)
     lista nuevo = new (nodo_lista);
     nuevo->dato = n;
     nuevo->sig = NULL;
-    
+
     if (Null(l))
     {
         // Si la lista está vacía, el nuevo nodo es toda la lista
@@ -55,11 +55,8 @@ bool Null(lista l)
 
 bool IsElement(lista l, int n)
 {
-    if (Null(l))
-    {
-        return false;
-    }
-    else
+    // Busca el elemento n en la lista l de forma iterativa
+    while (l != NULL)
     {
         if (head(l) == n)
         {
@@ -67,87 +64,42 @@ bool IsElement(lista l, int n)
         }
         else
         {
-            return IsElement(tail(l), n);
+            l = tail(l);
         }
     }
+    return false;
 }
 
-int contar(lista l){
-// Retorna la cantidad de elementos de l (iterativa).
-	int cant = 0;
-	while(l != NULL){
-		cant++;
-		l = l->sig;
-	}
-	return cant;
+int contar(lista l)
+{
+    // Retorna la cantidad de elementos de l (iterativa).
+    int cant = 0;
+    while (l != NULL)
+    {
+        cant++;
+        l = l->sig;
+    }
+    return cant;
 }
 
 lista quitar(lista l, int n)
 {
-    // devuelve una nueva lista sin el elem n (iterativa)
+    // devuelve una nueva lista sin el elem n
     if (Null(l))
     {
         return l;
     }
-    
-    // Si el primer elemento es el que buscamos, devolver el resto
-    if (head(l) == n)
+    else
     {
-        return tail(l);
-    }
-    
-    // Crear nueva lista copiando elementos hasta encontrar n
-    lista nueva = NULL;
-    lista ultimo = NULL;
-    lista actual = l;
-    
-    // Copiar elementos hasta encontrar n o llegar al final
-    while (actual != NULL && actual->dato != n)
-    {
-        lista nuevo_nodo = new (nodo_lista);
-        nuevo_nodo->dato = actual->dato;
-        nuevo_nodo->sig = NULL;
-        
-        if (nueva == NULL)
+        if (head(l) == n)
         {
-            nueva = nuevo_nodo;
-            ultimo = nuevo_nodo;
+            return tail(l);
         }
         else
         {
-            ultimo->sig = nuevo_nodo;
-            ultimo = nuevo_nodo;
-        }
-        actual = actual->sig;
-    }
-    
-    // Si encontramos el elemento, saltar este nodo y copiar el resto
-    if (actual != NULL && actual->dato == n)
-    {
-        actual = actual->sig; // Saltar el nodo con el elemento n
-        
-        // Copiar el resto de la lista
-        while (actual != NULL)
-        {
-            lista nuevo_nodo = new (nodo_lista);
-            nuevo_nodo->dato = actual->dato;
-            nuevo_nodo->sig = NULL;
-            
-            if (nueva == NULL)
-            {
-                nueva = nuevo_nodo;
-                ultimo = nuevo_nodo;
-            }
-            else
-            {
-                ultimo->sig = nuevo_nodo;
-                ultimo = nuevo_nodo;
-            }
-            actual = actual->sig;
+            return cons(quitar(tail(l), n), head(l));
         }
     }
-    
-    return nueva;
 }
 
 void imprimir(lista l)
@@ -527,4 +479,3 @@ lista Append(lista l, lista p)
 
     return ret;
 }
-
