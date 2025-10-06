@@ -84,22 +84,32 @@ int contar(lista l)
 
 lista quitar(lista l, int n)
 {
-    // devuelve una nueva lista sin el elem n
-    if (Null(l))
+    // devuelve una lista sin el elem n (modifica la original)
+    lista recl = l;
+    lista ant;
+    
+    if (l != NULL)
     {
-        return l;
-    }
-    else
-    {
-        if (head(l) == n)
+        while (recl->dato != n && recl->sig != NULL)
         {
-            return tail(l);
+            ant = recl;
+            recl = recl->sig;
         }
-        else
+        
+        if (recl->dato == n)
         {
-            return cons(quitar(tail(l), n), head(l));
+            if (recl == l)
+            {
+                l = recl->sig;
+            }
+            else
+            {
+                ant->sig = recl->sig;
+            }
+            delete(recl);
         }
     }
+    return l;
 }
 
 void imprimir(lista l)
