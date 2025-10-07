@@ -92,7 +92,6 @@ int cantidad(abb a) {
    }
 } 
 
-
 abb eliminar(int x, abb a) {
     if(vacio(a)){
         return NULL;
@@ -100,7 +99,27 @@ abb eliminar(int x, abb a) {
         a->izq = eliminar(x, a->izq);
     } else if(x > a->dato) {
         a->der = eliminar(x, a->der);
-    } else { // x == a->dato
-}
-
+    } else { // x == a->dato - encontramos el nodo a eliminar
+        if(vacio(subizq(a)) && vacio(subder(a))) {
+            // Caso 1: Nodo hoja (sin hijos)
+            delete a;
+            return NULL;
+        } else if(vacio(subizq(a))) {
+            // Caso 2: Solo tiene hijo derecho
+            abb temp = subder(a);
+            delete a;
+            return temp;
+        } else if(vacio(subder(a))) {
+            // Caso 3: Solo tiene hijo izquierdo
+            abb temp = subizq(a);
+            delete a;
+            return temp;
+        } else {
+            // Caso 4: Tiene ambos hijos
+            int minDer = minimo(subder(a));
+            a->dato = minDer;
+            a->der = eliminar(minDer, subder(a));
+        }
+    }
+    return a;
 }
