@@ -17,7 +17,8 @@ bool pertenece2(int x, arbolb ab);
 int max(int x, int y);
 int profundidad(arbolb ab);
 int cantidad(arbolb ab);
-arbolb destruir(arbolb ab);
-void destruir1(arbolb &ab);
+arbolb destruir1(arbolb ab);
+void destruir2(arbolb &ab);
+int mayor(arbolb ab);
 
 #endif

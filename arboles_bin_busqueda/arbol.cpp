@@ -52,11 +52,26 @@ bool vacio(abb a) {
 }
 //pertenece 1 y 2
 bool pertenece1(int x, abb a) {
-    
+    //retorna true si pertenece, false si es vacío
+    if(vacio(a)) {
+        return false;
+    } else if(raiz(a) == x) {
+        return true;
+    } else if(x < raiz(a)) {
+        return pertenece1(x, subizq(a));
+    } else {
+        return pertenece1(x, subder(a));
+    }
 }
 
-bool pertenece2(int x, abb a) {
-    
+int minimo(abb a) {
+    //pos: retorna el valor entero menor
+    //pre: a no vacío
+    if(vacio(subizq(a))) {
+        return raiz(a);
+    } else {
+        return minimo(subizq(a));
+    }
 }
 
 int max(int x, int y) {
@@ -68,18 +83,24 @@ int max(int x, int y) {
     }
 }
 
-int profundidad(abb a) {
-   
-}
 
 int cantidad(abb a) {
-   
+   if(vacio(a)) {
+       return 0;
+   } else {
+       return 1 + cantidad(subizq(a)) + cantidad(subder(a));
+   }
+} 
+
+
+abb eliminar(int x, abb a) {
+    if(vacio(a)){
+        return NULL;
+    } else if(x < a->dato) {
+        a->izq = eliminar(x, a->izq);
+    } else if(x > a->dato) {
+        a->der = eliminar(x, a->der);
+    } else { // x == a->dato
 }
 
-abb destruir(abb ab) {
-  
-}
-
-void destruir(abb &ab) {
-    
 }

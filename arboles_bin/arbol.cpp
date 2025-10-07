@@ -97,23 +97,49 @@ int cantidad(arbolb ab) {
     }
 }
 
-arbolb destruir(arbolb ab) {
+arbolb destruir1(arbolb ab) {
     //pos: elimina todos los nodos y libera memoria
     if(ab == NULL) {
         return NULL;
     } else {
-        ab->izq = destruir(ab->izq);
-        ab->der  = destruir(ab->der);
+        ab->izq = destruir1(ab->izq);
+        ab->der  = destruir1(ab->der);
         delete (ab);
         return NULL;
     }
 }
 
-void destruir1(arbolb &ab) {
+void destruir2(arbolb &ab) {
     //pos: elimina todos los nodos y libera memoria
     if(ab != NULL) {
-        destruir1(ab->izq);
-        destruir1(ab->der);
+        destruir2(ab->izq);
+        destruir2(ab->der);
         delete (ab);
     }
+}
+
+int mayor(arbolb ab) {
+   if(vacio(ab->izq) && vacio(ab->der)) {
+    return raiz(ab);
+   } else if(vacio(ab->izq)) {
+    int mayorDerecho = mayor(ab->der);
+    if(ab->dato > mayorDerecho) {
+        return ab->dato;
+    } else {
+        return mayorDerecho;
+    }
+   } else if(vacio(ab->der)) {
+        int mayorIzquierdo = mayor(ab->izq);
+        if(ab->dato > mayorIzquierdo) {
+            return ab->dato;
+        } else {
+            return mayorIzquierdo;
+        }
+    } else {
+        int mayorIzquierdo = mayor(ab->izq);
+        int mayorDerecho = mayor(ab->der);
+        int result = max(ab->dato, mayorIzquierdo);
+        result = max(result, mayorDerecho);
+        return result;
+   }
 }
