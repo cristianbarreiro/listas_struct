@@ -1,5 +1,4 @@
 #include "dyn_array.h"
-#include <string.h>
 
 struct nodo_dynar{
 	char * cadena;

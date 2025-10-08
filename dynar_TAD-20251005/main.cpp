@@ -4,8 +4,7 @@
 // main.c
 // Modulo de Prueba Arreglo Dinámico.
 
-#include <iostream>
-#include <string.h>
+
 #include "dyn_array.h"
 
 #define MAX_COMANDO 25

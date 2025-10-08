@@ -1,15 +1,15 @@
 // Estructuras de Datos y Algoritmos - Curso 2022
-// Tecnologo en Informatica FIng - DGETP - UTEC
-//
-// dyn_array.h
 // Modulo Definición/Especificación Arreglo Dinámico.
 
 
 #ifndef DYN_ARRAY_H
 #define DYN_ARRAY_H
 
-typedef struct nodo_dynar * dynar; // tipo opaco
+#include <stdlib.h>  // Para malloc, free
+#include <iostream>
+#include <string.h>  // Para strcpy
 
+typedef struct nodo_dynar * dynar; // tipo opaco
 
 dynar dynar_crear(int tam);
 // Crea un Arreglo dinamico de tamaño tam.
