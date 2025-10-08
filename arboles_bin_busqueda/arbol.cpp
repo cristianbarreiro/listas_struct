@@ -90,6 +90,17 @@ int cantidad(abb a) {
    } else {
        return 1 + cantidad(subizq(a)) + cantidad(subder(a));
    }
+}
+
+int profundidad(abb a) {
+    //pos: retorna la profundidad máxima del árbol
+    if(vacio(a)) {
+        return 0;
+    } else {
+        int profIzq = profundidad(subizq(a));
+        int profDer = profundidad(subder(a));
+        return 1 + max(profIzq, profDer);
+    }
 } 
 
 abb eliminar(int x, abb a) {
@@ -122,4 +133,16 @@ abb eliminar(int x, abb a) {
         }
     }
     return a;
+}
+
+abb destruir(abb a) {
+    //pos: elimina todos los nodos del árbol y libera la memoria
+    if(vacio(a)) {
+        return NULL;
+    } else {
+        destruir(subizq(a));
+        destruir(subder(a));
+        delete a;
+        return NULL;
+    }
 }
