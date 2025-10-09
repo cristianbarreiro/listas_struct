@@ -31,6 +31,6 @@ int profundidad(abb a);
 abb eliminar(int x, abb a);
 abb destruir(abb a);
 void alisarAbb(abb a, lista &s, lista &l);
-
+int contarHojas(abb a);
 
 #endif
