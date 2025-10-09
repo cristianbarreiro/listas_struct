@@ -12,17 +12,31 @@ abb crear() {
 }
 
 abb Insertar(int x, abb a) {
-    //pos: crea un nuevo árbolb cuya raíz tiene valor x
-    if(a  == NULL) {
+    //pos: inserta x en forma ordenada en el abb.
+    abb iter = a;
+    abb ant;
+    while(iter != NULL && x != iter->dato) {
+        ant = iter;
+        if(x < iter->dato) {
+            iter = iter->izq;
+        } else {
+            iter = iter->der;
+        }
+    }
+    if(iter == NULL) {
+        // Si no se encontró el valor, se inserta
         abb aux = new (nodo_abb);
         aux->dato = x;
         aux->izq = NULL;
         aux->der = NULL;
-        return aux;
-    } else if(x < a->dato) {
-        a->izq = Insertar(x, a->izq);
-    } else {
-        a->der = Insertar(x, a->der);
+        if(ant == NULL) {
+            // Árbol vacío, el nuevo nodo es la raíz
+            a = aux;
+        } else if(x < ant->dato) {
+            ant->izq = aux;
+        } else {
+            ant->der = aux;
+        }
     }
     return a;
 }
@@ -51,27 +65,26 @@ bool vacio(abb a) {
     return (a == NULL);
 }
 //pertenece 1 y 2
-bool pertenece1(int x, abb a) {
+bool pertenece(int x, abb a) {
     //retorna true si pertenece, false si es vacío
     if(vacio(a)) {
         return false;
     } else if(raiz(a) == x) {
         return true;
     } else if(x < raiz(a)) {
-        return pertenece1(x, subizq(a));
+        return pertenece(x, subizq(a));
     } else {
-        return pertenece1(x, subder(a));
+        return pertenece(x, subder(a));
     }
 }
 
 int minimo(abb a) {
     //pos: retorna el valor entero menor
     //pre: a no vacío
-    if(vacio(subizq(a))) {
-        return raiz(a);
-    } else {
-        return minimo(subizq(a));
+    while(a->izq != NULL) {
+        a = a->izq;
     }
+    return a->dato;
 }
 
 int max(int x, int y) {
