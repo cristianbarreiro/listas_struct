@@ -62,7 +62,7 @@ bool vacio(abb a)
     // en caso contrario
     return (a == NULL);
 }
-// pertenece 1 y 2
+
 bool pertenece(int x, abb a)
 {
     // retorna true si pertenece, false si es vacío
