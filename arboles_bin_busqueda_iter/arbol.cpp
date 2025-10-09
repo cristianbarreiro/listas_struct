@@ -228,16 +228,46 @@ abb eliminar(int x, abb a)
 
 abb destruir(abb a)
 {
-    // pos: elimina todos los nodos del árbol y libera la memoria
+    // pos: elimina todos los nodos del árbol y libera la memoria (iterativa)
     if (vacio(a))
     {
         return NULL;
     }
     else
     {
-        destruir(subizq(a));
-        destruir(subder(a));
-        delete a;
+        abb actual = a;
+        
+        while (actual != NULL)
+        {
+            if (actual->izq == NULL)
+            {
+                abb temp = actual;
+                actual = actual->der;
+                delete temp;
+            }
+            else
+            {
+                abb pred = actual->izq;
+                while (pred->der != NULL && pred->der != actual)
+                {
+                    pred = pred->der;
+                }
+                
+                if (pred->der == NULL)
+                {
+                    pred->der = actual;
+                    actual = actual->izq;
+                }
+                else
+                {
+                    pred->der = NULL;
+                    abb temp = actual;
+                    actual = actual->der;
+                    delete temp;
+                }
+            }
+        }
+        
         return NULL;
     }
 }
