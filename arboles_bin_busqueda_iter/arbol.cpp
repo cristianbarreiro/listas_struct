@@ -64,18 +64,19 @@ bool vacio(abb a) {
     //en caso contrario
     return (a == NULL);
 }
-//pertenece 1 y 2
+
 bool pertenece(int x, abb a) {
-    //retorna true si pertenece, false si es vacío
-    if(vacio(a)) {
-        return false;
-    } else if(raiz(a) == x) {
-        return true;
-    } else if(x < raiz(a)) {
-        return pertenece(x, subizq(a));
-    } else {
-        return pertenece(x, subder(a));
+    // pos: retorna true si x pertenece al árbol, false en caso contrario
+    while (a != NULL) {
+        if (x == a->dato) {
+            return true;
+        } else if (x < a->dato) {
+            a = a->izq;
+        } else {
+            a = a->der;
+        }
     }
+    return false;
 }
 
 int minimo(abb a) {
