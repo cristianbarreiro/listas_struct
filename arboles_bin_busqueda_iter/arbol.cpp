@@ -181,48 +181,82 @@ int profundidad(abb a)
 
 abb eliminar(int x, abb a)
 {
-    if (vacio(a))
+    // pos: elimina el nodo con valor x del árbol (iterativa)
+    abb actual = a;
+    abb padre = NULL;
+
+    while (actual != NULL && actual->dato != x)
     {
-        return NULL;
-    }
-    else if (x < a->dato)
-    {
-        a->izq = eliminar(x, a->izq);
-    }
-    else if (x > a->dato)
-    {
-        a->der = eliminar(x, a->der);
-    }
-    else
-    { // x == a->dato - encontramos el nodo a eliminar
-        if (vacio(subizq(a)) && vacio(subder(a)))
+        padre = actual;
+        if (x < actual->dato)
         {
-            // Caso 1: Nodo hoja (sin hijos)
-            delete a;
-            return NULL;
-        }
-        else if (vacio(subizq(a)))
-        {
-            // Caso 2: Solo tiene hijo derecho
-            abb temp = subder(a);
-            delete a;
-            return temp;
-        }
-        else if (vacio(subder(a)))
-        {
-            // Caso 3: Solo tiene hijo izquierdo
-            abb temp = subizq(a);
-            delete a;
-            return temp;
+            actual = actual->izq;
         }
         else
         {
-            // Caso 4: Tiene ambos hijos
-            int minDer = minimo(subder(a));
-            a->dato = minDer;
-            a->der = eliminar(minDer, subder(a));
+            actual = actual->der;
         }
     }
+
+    if (actual == NULL)
+    {
+        return a;
+    }
+
+    abb reemplazo;
+
+    if (actual->izq == NULL && actual->der == NULL)
+    {
+        reemplazo = NULL;
+    }
+    else if (actual->izq == NULL)
+    {
+        reemplazo = actual->der;
+    }
+    else if (actual->der == NULL)
+    {
+        reemplazo = actual->izq;
+    }
+    else
+    {
+        abb padreSucesor = actual;
+        abb sucesor = actual->der;
+        while (sucesor->izq != NULL)
+        {
+            padreSucesor = sucesor;
+            sucesor = sucesor->izq;
+        }
+
+        actual->dato = sucesor->dato;
+
+        if (padreSucesor == actual)
+        {
+            padreSucesor->der = sucesor->der;
+        }
+        else
+        {
+            padreSucesor->izq = sucesor->der;
+        }
+
+        delete sucesor;
+        return a;
+    }
+
+    if (padre == NULL)
+    {
+        delete actual;
+        return reemplazo;
+    }
+    else if (padre->izq == actual)
+    {
+        padre->izq = reemplazo;
+    }
+    else
+    {
+        padre->der = reemplazo;
+    }
+
+    delete actual;
     return a;
 }
 
