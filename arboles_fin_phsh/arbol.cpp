@@ -6,9 +6,25 @@ struct nodo_arbol {
     arbol sh;
 };
 
+int max(int x, int y) {
+    if(x>y) {
+        return x;
+    } else {
+        return y;
+    }
+}
+
 arbol crear() {
-    // Crea un árbol vacío.
-    return NULL;
+    arbol a = new (nodo_arbol);
+    a->ph = NULL;
+    a->sh = NULL;
+    return a;
+}
+
+arbol raiz(arbol a) {
+    // Retorna el valor del nodo raíz del árbol a.
+    // Pre: a no es vacío.
+    return a;
 }
 
 arbol primer_hijo(arbol a) {
@@ -80,6 +96,15 @@ arbol destruir(arbol a) {
     return NULL;
 }
 
+arbol destruir2(arbol &a) {
+    if(a!= NULL) {
+        destruir2(a->ph);
+        destruir2(a->sh);
+        delete a;
+        a = NULL;
+    }
+}
+
 arbol insertar(int x, int padre, arbol a){
     // Inserta el valor x como hijo del nodo con valor padre en el árbol a.
     // Si padre no existe en a, no hace nada.
@@ -104,3 +129,19 @@ arbol insertar(int x, int padre, arbol a){
         return NULL; // Padre no encontrado
     }
 }
+
+arbol buscar_nodo (int x, arbol a) {
+    // Busca el nodo con valor x en el árbol a.
+    if (a == NULL) {
+        return NULL;
+    } else if (a->dato == x) {
+        return a;
+    } else {
+        arbol esta_ph= buscar_nodo(x, primer_hijo(a));
+        if (esta_ph != NULL) {
+            return esta_ph;
+        } else {
+            return buscar_nodo(x, siguiente_hermano(a));
+        }
+    }
+}   
