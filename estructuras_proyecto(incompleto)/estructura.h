@@ -3,13 +3,32 @@
 
 #include "definiciones.h"
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 typedef struct nodo_archivo *Archivo;
 typedef struct nodo_version *Version;
 typedef struct nodo_texto *Texto;
+
+struct nodo_archivo
+{
+    char *nombre;
+    Version versiones; // árbol de versiones
+};
+
+struct nodo_version
+{
+    char *numero;    // "1", "2.1", "2.2.1", etc.
+    Texto texto;     // Puntero a las líneas del texto
+    Version padre;   // Puntero al padre (NULL si raíz)
+    Version hijo;    // Puntero al primer hijo (subversión)
+    Version hermano; // Puntero al siguiente hermano
+    bool esraiz;     // Indica si es una versión raíz (primer nivel)
+};
+
+struct nodo_texto
+{
+    char *linea;
+    unsigned int nlinea;
+    Texto sig;
+};
 
 Version BuscarVersion(Archivo &a, char *version);
 // Busca recursivamente una versión específica en el árbol

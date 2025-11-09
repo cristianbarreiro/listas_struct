@@ -1,5 +1,11 @@
 {
     "files.associations": {
-        "cstddef": "cpp"
+        "cstddef": "cpp",
+        "iostream": "cpp",
+        "vector": "cpp",
+        "cstring": "cpp",
+        "cstdlib": "cpp",
+        "cstdio": "cpp",
+        "sstream": "cpp"
     }
 }
