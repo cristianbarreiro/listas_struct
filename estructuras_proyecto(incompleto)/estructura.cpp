@@ -1,5 +1,5 @@
 #include "estructura.h"
-
+hhhhhhhhhhhhhhhhhhhhg
 Version BuscarAux(Version v, char *version)
 {
     if (v->numero == NULL)

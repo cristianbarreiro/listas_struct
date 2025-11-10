@@ -19,18 +19,20 @@ minheap minheap_insertar(minheap h, int x)
 }
 
 // Retorna el valor del mínimo elemento
-int minheap_lleno(minheap h)
+int minheap_minimo(minheap h)
 {
 }
 
 // Retorna true si el min-heap está lleno
 bool minheap_lleno(minheap h)
 {
+    
 }
 
 // Retorna la cantidad de elementos de h
 int minheap_tope(minheap h)
 {
+    
 }
 
 minheap minheap_quitar_minimo(minheap h)
