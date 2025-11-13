@@ -1,6 +1,5 @@
-#include "practica.h"
+#include "arbol_binario.h"
 
-typedef nodo_arbol *abb;
 
 struct nodo_arbol
 {

@@ -1,14 +1,10 @@
 #include "practica.h"
 
-typedef struct nodo_cola *cola;
-
 struct nodo_cola
 {
     int dato;
     cola sig;
 };
-
-typedef struct nodo_queue *queue;
 
 struct nodo_queue
 {
