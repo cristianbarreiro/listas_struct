@@ -6,6 +6,8 @@
         "cstring": "cpp",
         "cstdlib": "cpp",
         "cstdio": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "random": "cpp",
+        "limits": "cpp"
     }
 }
