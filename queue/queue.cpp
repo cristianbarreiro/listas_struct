@@ -1,10 +1,5 @@
 #include "queue.h"
 
-#include <stdio.h>
-
-
-typedef struct nodo_cola * cola;
-
 struct nodo_cola{
 	int dato;
 	cola sig;	

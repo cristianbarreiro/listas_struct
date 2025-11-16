@@ -1,7 +1,12 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-typedef struct nodo_queue * queue;
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+typedef struct nodo_queue *queue;
+typedef struct nodo_cola *cola;
 
 queue crear();
 // Crea un queue vacio.

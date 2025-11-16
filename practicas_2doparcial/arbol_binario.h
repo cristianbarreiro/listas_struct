@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <queue>
 
 typedef struct nodo_arbol *abb;
 
@@ -15,5 +16,8 @@ int suma(abb a);
 int sumaMayoresQueK(abb a, int k);
 int profundidad(abb a);
 bool balanceado(abb a);
+int MayorCantidadNivelQueue(abb a);
+void contarNodosRecursivo(abb a, int nivel, int conteoNiveles[]);
+int MayorCantidadNivel(abb a);
 
 #endif

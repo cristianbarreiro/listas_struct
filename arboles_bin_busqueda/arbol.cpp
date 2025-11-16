@@ -207,6 +207,7 @@ void alisarAbb(abb a, lista &s, lista &l)
         alisarAbb(a->der, s, l);
     }
 }
+
 int contarHojas(abb a)
 {
     // pos: retorna la cantidad de hojas en el árbol
