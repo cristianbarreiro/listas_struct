@@ -7,8 +7,7 @@ struct nodo_cola
     struct nodo_cola *sig;
 };
 
-
-//Primero / vacío (opcional, pero típico del curso)
+// Primero / vacío (opcional, pero típico del curso)
 int pqueue_first(pqueue q)
 // PRE: q no vacía
 {
@@ -20,11 +19,10 @@ bool pqueue_empty(pqueue q)
     return (q == NULL);
 }
 
-
-//Inserción con prioridad (O(n))
+// Inserción con prioridad (O(n))
 pqueue pqueue_insert(pqueue q, int x, unsigned int p)
 {
-    struct nodo_cola *nuevo = new(nodo_cola);
+    struct nodo_cola *nuevo = new (nodo_cola);
     nuevo->dato = x;
     nuevo->prioridad = p;
     nuevo->sig = NULL;
@@ -48,7 +46,7 @@ pqueue pqueue_insert(pqueue q, int x, unsigned int p)
     return q;
 }
 
-//Borrado del elemento de mayor prioridad (O(1))
+// Borrado del elemento de mayor prioridad (O(1))
 pqueue pqueue_delete(pqueue q)
 {
     if (q == NULL)
@@ -60,7 +58,7 @@ pqueue pqueue_delete(pqueue q)
     return q;
 }
 
-//Liberar toda la cola (O(n))
+// Liberar toda la cola (O(n))
 pqueue pqueue_destroy(pqueue q)
 {
     if (q != NULL)

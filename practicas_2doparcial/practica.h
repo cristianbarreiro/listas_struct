@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <cstddef> // Para NULL
 
 typedef struct nodo_cola *cola;
 
@@ -11,6 +12,8 @@ typedef struct nodo_queue *queue;
 
 queue insertar(queue q, int x);
 queue eliminar(queue q);
+queue crearQueue();
+void destruirQueue(queue &q);
 
 
 

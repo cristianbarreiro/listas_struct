@@ -50,3 +50,25 @@ queue eliminar(queue q)
     }
     return q;
 }
+
+void destruirQueue(queue &q)
+{
+    // Elimina todos los nodos de la cola uno por uno
+    while (q->primero != NULL)
+    {
+        q = eliminar(q);
+    }
+    // Libera la estructura contenedora de la cola
+    delete q;
+    // Asigna NULL al puntero original para evitar usarlo después de liberado
+    q = NULL;
+}
+
+queue crearQueue()
+{
+    queue q = new nodo_queue;
+    q->primero = NULL;
+    q->ultimo = NULL;
+    q->suma = 0;
+    return q;
+}

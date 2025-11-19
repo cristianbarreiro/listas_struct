@@ -1,33 +1,32 @@
-#include "arbol_binario.h"
-
+#include "arbol_finitario.h"
 
 struct nodo_arbol
 {
     int dato;
-    abb ph;//primer hijo
-    abb sh;//siguiente hermano
+    arbol ph; // primer hijo
+    arbol sh; // siguiente hermano
 };
 
-abb subizq(abb a)
+arbol subizq(arbol a)
 {
     // pos: retorna el subárbol izquierdo
     // pre: ab no vacía
     return a->ph;
 }
 
-abb subder(abb a)
+arbol subder(arbol a)
 {
     // pos: retorna el subárbol derecho
     // pre: ab no vacío
     return a->sh;
 }
 
-bool vacio(abb a)
+bool vacio(arbol a)
 {
     return (a == NULL);
 }
 
-int maximo(abb a)
+int maximo(arbol a)
 {
     // Retorne el máximo de a
     // PRE: a no es vacío
@@ -38,7 +37,7 @@ int maximo(abb a)
     return a->dato;
 }
 
-int suma(abb a)
+int suma(arbol a)
 {
     if (a == NULL)
     {
@@ -50,7 +49,7 @@ int suma(abb a)
     }
 }
 
-int sumaMayoresQueK(abb a, int k)
+int sumaMayoresQueK(arbol a, int k)
 {
     if (a == NULL)
     {
@@ -66,7 +65,7 @@ int sumaMayoresQueK(abb a, int k)
     }
 }
 
-int profundidad(abb a)
+int profundidad(arbol a)
 {
     // pos: retorna la profundidad máxima del árbol
     if (vacio(a))
@@ -81,7 +80,7 @@ int profundidad(abb a)
     }
 }
 
-bool balanceado(abb a)
+bool balanceado(arbol a)
 {
     if (a == NULL)
     {
@@ -102,7 +101,9 @@ bool balanceado(abb a)
     }
 }
 
-int MayorCantidadNivelQueue(abb a)
+// boe
+
+int MayorCantidadNivelQueue(arbol a)
 {
     if (vacio(a))
     {
@@ -111,7 +112,7 @@ int MayorCantidadNivelQueue(abb a)
 
     // Usamos una cola para el recorrido por niveles.
     // La cola almacenará punteros a los nodos del árbol.
-    std::queue<abb> q;
+    std::queue<arbol> q;
     q.push(a);
 
     int maxNodos = 0;
@@ -131,7 +132,7 @@ int MayorCantidadNivelQueue(abb a)
         // los sacamos de la cola y añadimos a sus hijos.
         for (int i = 0; i < nodosEnNivel; ++i)
         {
-            abb nodoActual = q.front();
+            arbol nodoActual = q.front();
             q.pop();
 
             // Si tiene hijo izquierdo (ph), lo añadimos a la cola.
@@ -151,7 +152,7 @@ int MayorCantidadNivelQueue(abb a)
     return maxNodos;
 }
 
-void ContarNodosRecursivo(abb a, int nivel, int conteoNiveles[])
+void ContarNodosRecursivo(arbol a, int nivel, int conteoNiveles[])
 {
     if (vacio(a))
     {
@@ -166,7 +167,7 @@ void ContarNodosRecursivo(abb a, int nivel, int conteoNiveles[])
     ContarNodosRecursivo(a->sh, nivel + 1, conteoNiveles);
 }
 
-int MayorCantidadNivel(abb a)
+int MayorCantidadNivel(arbol a)
 {
     if (vacio(a))
     {
@@ -178,7 +179,7 @@ int MayorCantidadNivel(abb a)
 
     // 2. Crear un arreglo para almacenar el conteo de nodos de cada nivel.
     // Usamos 'new' para crear un arreglo dinámico en el heap.
-    int* conteoNiveles = new int[prof](); // Los '()' inicializan todo a 0.
+    int *conteoNiveles = new int[prof](); // Los '()' inicializan todo a 0.
 
     // 3. Llamar a la función recursiva para llenar el arreglo.
     // Empezamos en el nivel 0.

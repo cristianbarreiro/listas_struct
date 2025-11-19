@@ -1,5 +1,5 @@
 #include "practica.h"
-#include "arbol_binario.h"
+#include "arbol_finitario.h"
 
 int main()
 {
